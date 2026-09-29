@@ -1,0 +1,1121 @@
+/* Garmin Connect Night — athletic midnight
+   Remaps Garmin design tokens + polish on cards / chrome.
+   Disabled when html[data-gcn-off] is set. */
+
+html:not([data-gcn-off]) {
+  color-scheme: dark;
+
+  /* —— Core palette —— */
+  --gcn-void: #070a0f;
+  --gcn-base: #0c1118;
+  --gcn-elev-1: #121a24;
+  --gcn-elev-2: #172231;
+  --gcn-elev-3: #1e2b3d;
+  --gcn-line: rgba(140, 180, 210, 0.12);
+  --gcn-line-strong: rgba(140, 180, 210, 0.22);
+  --gcn-text: #e8eef6;
+  --gcn-text-dim: #a8b6c8;
+  --gcn-accent: #2ee6a6;
+  --gcn-accent-soft: rgba(46, 230, 166, 0.14);
+  --gcn-accent-glow: rgba(46, 230, 166, 0.35);
+  --gcn-link: #6ec8ff;
+  --gcn-danger: #ff6b7a;
+  --gcn-ok: #3dde8a;
+  --gcn-warn: #ffc14d;
+  --gcn-radius: 16px;
+  --gcn-radius-sm: 12px;
+  --gcn-font: "Sora", "Open Sans", system-ui, sans-serif;
+  --gcn-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* —— Semantic Garmin tokens (!important: Garmin reinjects light tokens later) —— */
+  --bg-background-default: #0c1118 !important;
+  --bg-background-void: #070a0f !important;
+  --bg-card: #121a24 !important;
+  --bg-hero: #121a24 !important;
+  --bg-scrim: rgba(0, 0, 0, 0.55) !important;
+  --bg-surface-01: #121a24 !important;
+  --bg-surface-02: #172231 !important;
+  --bg-surface-03: #1e2b3d !important;
+
+  --text-default: #e8eef6 !important;
+  --text-secondary: #a8b6c8 !important;
+  --text-action: #6ec8ff !important;
+  --text-success: #3dde8a !important;
+  --text-warning: #ff6b7a !important;
+  --text-always-black: #0a0a0a !important;
+  --text-always-white: #ffffff !important;
+  --text-on-primary: #04140f !important;
+  --text-on-primary-dark: #04140f !important;
+  --text-on-primary-light: #04140f !important;
+
+  --icon-default: #e8eef6 !important;
+  --icon-secondary: #a8b6c8 !important;
+  --icon-action: #2ee6a6 !important;
+  --icon-success: #3dde8a !important;
+  --icon-warning: #ff6b7a !important;
+  --icon-on-primary: #04140f !important;
+  --icon-always-white: #ffffff !important;
+  --icon-always-black: #0a0a0a !important;
+
+  /* Inverse tokens used as SVG fill on header controls */
+  --inverse-bg-surface-02-inverse: #e8eef6 !important;
+  --inverse-text-default-inverse: #e8eef6 !important;
+  --inverse-text-action-inverse: #6ec8ff !important;
+
+  --button-fill-primary: #2ee6a6 !important;
+  --button-fill-primary-hover: #4af0b6 !important;
+  --button-fill-primary-press: #1fc98f !important;
+  --button-stroke-primary: #2ee6a6 !important;
+  --button-stroke-secondary: #8b9bb0 !important;
+  --button-fill-secondary: #1e2b3d !important;
+  --button-fill-elevated: #172231 !important;
+  --button-fill-tertiary-hover: #1e2b3d !important;
+
+  --stroke-container: rgba(140, 180, 210, 0.12) !important;
+  --stroke-divider: rgba(140, 180, 210, 0.22) !important;
+  --stroke-action: #2ee6a6 !important;
+  --stroke-secondary: #8b9bb0 !important;
+  --stroke-focus: #2ee6a6 !important;
+  --stroke-selected: #2ee6a6 !important;
+  --stroke-success: #3dde8a !important;
+  --stroke-warning: #ff6b7a !important;
+
+  /* Inputs / menus — hover blanc Garmin */
+  --input-fill-input: #172231 !important;
+  --input-fill-input-focus: #1e2b3d !important;
+  --input-fill-input-hover: #1e2b3d !important;
+  --input-stroke-input: rgba(140, 180, 210, 0.14) !important;
+  --input-stroke-input-focus: #2ee6a6 !important;
+  --input-stroke-input-hover: rgba(140, 180, 210, 0.28) !important;
+  --menu-fill-menu: #172231 !important;
+  --menu-fill-menu-hover: rgba(46, 230, 166, 0.14) !important;
+
+  --fill-primary: #2ee6a6 !important;
+  --fill-secondary: #1e2b3d !important;
+  --fill-subtle: #172231 !important;
+  --fill-info: #1e2b3d !important;
+  --fill-success: #3dde8a !important;
+  --fill-warning: #ff6b7a !important;
+  --fill-caution: #ffc14d !important;
+  --fill-highlight: rgba(46, 230, 166, 0.14) !important;
+  --fill-overlay: rgba(12, 17, 24, 0.72) !important;
+  --fill-always-white: #ffffff !important;
+  --fill-always-black: #000000 !important;
+
+  /* Progress — incomplete = blue, complete = teal */
+  --data-viz-neutral-primary: #6ec8ff !important;
+  --data-viz-neutral-secondary: #4a6078 !important;
+  --data-viz-green-primary: #2ee6a6 !important;
+  --data-viz-green-secondary: #1fc98f !important;
+  --data-viz-blue-primary: #6ec8ff !important;
+
+  --accent-fills-dark: var(--gcn-accent);
+  --accent-fills-dark-hover: #4af0b6;
+  --accent-fills-dark-press: #1fc98f;
+  --accent-fills-light: var(--gcn-accent);
+  --accent-fills-light-hover: #4af0b6;
+  --accent-fills-light-press: #1fc98f;
+  --accent-on-surface-dark: var(--gcn-accent);
+  --accent-on-surface-light: var(--gcn-accent);
+
+  --color-text-dark: var(--gcn-text);
+  --color-text-light: var(--gcn-text);
+  --color-text-medium: var(--gcn-text-dim);
+  --color-primary: var(--gcn-accent);
+  --color-secondary: var(--gcn-text-dim);
+  --color-icon-primary: var(--gcn-accent);
+  --color-icon-primary-hover: #4af0b6;
+  --color-icon-secondary: var(--gcn-text-dim);
+  --color-icon-secondary-hover: var(--gcn-text);
+  --color-icon-secondary-dark: var(--gcn-text);
+
+  /* Light UI surfaces → dark elevators */
+  --color-lightui-surface-1: var(--gcn-elev-1);
+  --color-lightui-surface-1-90: rgba(18, 26, 36, 0.92);
+  --color-lightui-surface-2: var(--gcn-elev-2);
+  --color-lightui-surface-3: var(--gcn-elev-3);
+  --color-lightui-surface-4: #243447;
+  --color-lightui-accent-1: var(--gcn-line-strong);
+  --color-lightui-accent-2: #3a4d63;
+
+  --color-gray-10: var(--gcn-elev-1);
+  --color-gray-15: var(--gcn-elev-2);
+  --color-gray-20: var(--gcn-elev-3);
+  --color-gray-25: #243447;
+  --color-gray-30: #2e4056;
+  --color-gray-35: #4a6078;
+  --color-gray-40: #6a8098;
+  --color-gray-45: var(--gcn-text-dim);
+  --color-gray-50: #a8b8c8;
+  --color-gray-55: #c8d4e0;
+  --color-gray-60: #dce4ec;
+  --color-gray-65: #e8eef6;
+  --color-gray-70: #f4f7fa;
+  --color-gray-white: var(--gcn-elev-1);
+  --color-gray-black: var(--gcn-text);
+
+  --color-darkui-surface-1: #070a0f !important;
+  --color-darkui-surface-2: #0c1118 !important;
+  --color-darkui-surface-3: #0c1118 !important;
+  --color-darkui-surface-4: #121a24 !important;
+
+  /* Legacy numbered grays often used as bg / text */
+  --color-100: var(--gcn-text);
+  --color-101: var(--gcn-text-dim);
+  --color-102: #6a8098;
+  --color-103: #3a4d63;
+  --color-104: var(--gcn-elev-2);
+  --color-105: var(--gcn-elev-1);
+  --color-106: var(--gcn-elev-1);
+  --color-107: #2e4056 !important;
+  --color-108: #2e4056 !important;
+  --color-109: var(--gcn-elev-3) !important;
+  --color-110: var(--gcn-elev-2);
+  --color-111: #7a90a8;
+  --color-112: var(--gcn-text);
+  --color-113: #7a90a8;
+  --color-114: #6a8098;
+  --color-115: var(--gcn-elev-2);
+  --color-116: var(--gcn-elev-3);
+  --color-117: var(--gcn-text);
+  --color-118: var(--gcn-elev-2);
+  --color-119: #5a7088;
+  --color-120: #c8d4e0;
+  --color-124: var(--gcn-elev-2);
+  --color-126: var(--gcn-elev-3);
+  --color-127: #2e4056;
+  --color-128: var(--gcn-text);
+  --color-130: var(--gcn-elev-3);
+  --color-131: var(--gcn-text);
+  --color-136: #3a4d63;
+  --color-138: #2e4056;
+  --color-140: var(--gcn-elev-3);
+  --color-141: rgba(18, 26, 36, 0.92);
+  --color-142: #2e4056;
+  --color-145: var(--gcn-elev-2);
+  --color-147: var(--gcn-text);
+
+  --shadow-sm: 0 0 0 1px var(--gcn-line), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 0 0 1px var(--gcn-line), 0 16px 40px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 0 0 1px var(--gcn-line-strong), 0 24px 56px rgba(0, 0, 0, 0.55);
+  --shadow-xl: 0 0 0 1px var(--gcn-accent-soft), 0 32px 80px rgba(0, 0, 0, 0.65);
+}
+
+/* —— Global chrome —— */
+html:not([data-gcn-off]) body,
+html:not([data-gcn-off]) .main-body,
+html:not([data-gcn-off]) .header,
+html:not([data-gcn-off]) [class*="Gc5PageWrapper_pageWrapper"],
+html:not([data-gcn-off]) [class*="Gc5PageWrapper_contentContainer"],
+html:not([data-gcn-off]) .content.page {
+  background: var(--gcn-base) !important;
+  color: var(--gcn-text) !important;
+  font-family: var(--gcn-font) !important;
+}
+
+html:not([data-gcn-off]) body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(1200px 600px at 12% -10%, rgba(46, 230, 166, 0.08), transparent 55%),
+    radial-gradient(900px 500px at 92% 8%, rgba(110, 200, 255, 0.07), transparent 50%),
+    radial-gradient(800px 700px at 70% 100%, rgba(46, 230, 166, 0.04), transparent 55%),
+    linear-gradient(180deg, #070a0f 0%, #0c1118 40%, #0a1016 100%);
+}
+
+html:not([data-gcn-off]) .main-body,
+html:not([data-gcn-off]) .connect-container,
+html:not([data-gcn-off]) [class*="Gc5PageWrapper"] {
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
+}
+
+html:not([data-gcn-off]) .content.page {
+  background: transparent !important;
+}
+
+/* —— Sidebar —— */
+html:not([data-gcn-off]) .main-nav,
+html:not([data-gcn-off]) [class*="MainSidebar_sidebarOuterContainer"] {
+  background: rgba(8, 12, 18, 0.92) !important;
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  border-right: 1px solid var(--gcn-line) !important;
+  box-shadow: 8px 0 40px rgba(0, 0, 0, 0.35);
+}
+
+html:not([data-gcn-off]) [class*="MainSidebar_menuItemLink"],
+html:not([data-gcn-off]) [class*="MainSidebar_menuItemText"] {
+  color: var(--gcn-text-dim) !important;
+  transition: color 0.18s ease, background 0.18s ease;
+}
+
+html:not([data-gcn-off]) [class*="MainSidebar_menuItemLink"]:hover,
+html:not([data-gcn-off]) [class*="MainSidebar_menuItem"]:hover [class*="MainSidebar_menuItemText"] {
+  color: var(--gcn-text) !important;
+}
+
+html:not([data-gcn-off]) [class*="MainSidebar_active"] [class*="MainSidebar_menuItemLink"],
+html:not([data-gcn-off]) [class*="MainSidebar_active"] [class*="MainSidebar_menuItemText"] {
+  color: var(--gcn-accent) !important;
+}
+
+html:not([data-gcn-off]) [class*="MainSidebar_active"] {
+  background: var(--gcn-accent-soft) !important;
+  box-shadow: inset 3px 0 0 var(--gcn-accent);
+}
+
+/* Expanded accordion groups — seamless with sidebar, no charcoal block */
+html:not([data-gcn-off]) li[class*="MainSidebar_openMenuItem"],
+html:not([data-gcn-off]) [class*="MainSidebar_menuItem"][class*="MainSidebar_openMenuItem"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+html:not([data-gcn-off]) [class*="MainSidebar_openMenuItem"] > [class*="MainSidebar_menuItemLink"],
+html:not([data-gcn-off]) [class*="MainSidebar_openMenuItem"] > [class*="MainSidebar_menuItemLink"] [class*="MainSidebar_menuItemText"] {
+  color: var(--gcn-text) !important;
+}
+
+html:not([data-gcn-off]) [class*="MainSidebar_openChildren"],
+html:not([data-gcn-off]) [class*="MainSidebar_children"] {
+  background: transparent !important;
+}
+
+html:not([data-gcn-off]) [class*="MainSidebar_menuItemChild"] [class*="MainSidebar_menuItemLink"],
+html:not([data-gcn-off]) [class*="MainSidebar_menuItemChild"] [class*="MainSidebar_menuItemText"],
+html:not([data-gcn-off]) [class*="MainSidebar_menuItemLinkChild"] {
+  color: var(--gcn-text-dim) !important;
+}
+
+html:not([data-gcn-off]) [class*="MainSidebar_menuItemChild"]:hover [class*="MainSidebar_menuItemLink"],
+html:not([data-gcn-off]) [class*="MainSidebar_menuItemChild"]:hover [class*="MainSidebar_menuItemText"],
+html:not([data-gcn-off]) [class*="MainSidebar_menuItemLinkChild"]:hover {
+  color: var(--gcn-text) !important;
+  background: rgba(46, 230, 166, 0.08) !important;
+}
+
+html:not([data-gcn-off]) [class*="MainSidebar_dropdownArrow"] {
+  color: var(--gcn-text-dim) !important;
+}
+
+html:not([data-gcn-off]) [class*="MainSidebar_dropdownArrow"][class*="MainSidebar_open"],
+html:not([data-gcn-off]) [class*="MainSidebar_open"][class*="dropdownArrow"] {
+  color: var(--gcn-accent) !important;
+}
+
+/* —— Header —— */
+html:not([data-gcn-off]) header.header,
+html:not([data-gcn-off]) [class*="TopHeaderBarView_header"] {
+  background: rgba(12, 17, 24, 0.78) !important;
+  backdrop-filter: blur(16px) saturate(1.15);
+  -webkit-backdrop-filter: blur(16px) saturate(1.15);
+  border-bottom: 1px solid var(--gcn-line) !important;
+}
+
+/* —— Cards —— */
+html:not([data-gcn-off]) [class*="Gc5Card_card"] {
+  background: linear-gradient(
+    155deg,
+    rgba(28, 40, 56, 0.92) 0%,
+    rgba(18, 26, 36, 0.96) 45%,
+    rgba(14, 20, 30, 0.98) 100%
+  ) !important;
+  border: 1px solid var(--gcn-line) !important;
+  border-radius: var(--gcn-radius) !important;
+  box-shadow:
+    0 0 0 1px rgba(46, 230, 166, 0.03),
+    0 12px 40px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04) !important;
+  overflow: hidden;
+  transition:
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+
+html:not([data-gcn-off]) [class*="Gc5Card_card"]:hover {
+  border-color: rgba(46, 230, 166, 0.28) !important;
+  box-shadow:
+    0 0 0 1px rgba(46, 230, 166, 0.12),
+    0 0 32px var(--gcn-accent-glow),
+    0 18px 48px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+  transform: translateY(-2px);
+}
+
+html:not([data-gcn-off]) [class*="InFocusCard_inFocusCard"] {
+  border-radius: 18px !important;
+}
+
+html:not([data-gcn-off]) [class*="SecondaryStatCard"] {
+  border-radius: var(--gcn-radius-sm) !important;
+}
+
+/* —— Typography —— */
+html:not([data-gcn-off]) h1,
+html:not([data-gcn-off]) h2,
+html:not([data-gcn-off]) h3,
+html:not([data-gcn-off]) h4,
+html:not([data-gcn-off]) [class*="Gc5CardHeader_headerText"],
+html:not([data-gcn-off]) [class*="InFocusCardStat_largeStatMainText"],
+html:not([data-gcn-off]) [class*="InFocusCardStat_statText"] {
+  color: var(--gcn-text) !important;
+  font-family: var(--gcn-font) !important;
+  letter-spacing: -0.02em;
+}
+
+html:not([data-gcn-off]) [class*="InFocusCardStat_largeStatMainText"] {
+  font-weight: 700 !important;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 24px rgba(46, 230, 166, 0.15);
+}
+
+html:not([data-gcn-off]) [class*="InFocusCardStat_subTextFaded"],
+html:not([data-gcn-off]) [class*="InFocusCardStat_smallStatSubText"] {
+  color: var(--gcn-text-dim) !important;
+}
+
+html:not([data-gcn-off]) a {
+  color: var(--gcn-link);
+}
+
+html:not([data-gcn-off]) a:hover {
+  color: #9ad8ff;
+}
+
+/* —— Buttons —— */
+html:not([data-gcn-off]) [class*="Button_primary"]:not([class*="Button_iconButton"]),
+html:not([data-gcn-off]) button[class*="Button_primary"]:not([class*="Button_iconButton"]) {
+  background: linear-gradient(135deg, #2ee6a6 0%, #1fc98f 100%) !important;
+  color: #04140f !important;
+  border: none !important;
+  border-radius: 999px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 0 20px rgba(46, 230, 166, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+html:not([data-gcn-off]) [class*="Button_primary"]:not([class*="Button_iconButton"]):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 28px rgba(46, 230, 166, 0.5);
+}
+
+/* Header / ghost icon buttons — light icons on dark chrome, no chrome box */
+html:not([data-gcn-off]) [class*="Button_iconButton"],
+html:not([data-gcn-off]) button[class*="Button_iconButton"],
+html:not([data-gcn-off]) [class*="TopHeaderBarView_headerItems"] [class*="Button_btn"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  color: var(--gcn-text) !important;
+  box-shadow: none !important;
+  border: none !important;
+  outline: none !important;
+}
+
+html:not([data-gcn-off]) [class*="Button_iconButton"]:hover,
+html:not([data-gcn-off]) [class*="TopHeaderBarView_headerItems"] [class*="Button_btn"]:hover {
+  background: var(--gcn-accent-soft) !important;
+  color: var(--gcn-accent) !important;
+}
+
+html:not([data-gcn-off]) [class*="Button_iconButton"] svg,
+html:not([data-gcn-off]) [class*="Button_iconButton"] svg path,
+html:not([data-gcn-off]) [class*="TopHeaderBarView_header"] svg,
+html:not([data-gcn-off]) [class*="TopHeaderBarView_header"] svg path,
+html:not([data-gcn-off]) header.header svg:not([class*="avatar"]),
+html:not([data-gcn-off]) header.header svg:not([class*="avatar"]) path {
+  fill: var(--gcn-text) !important;
+  color: var(--gcn-text) !important;
+}
+
+html:not([data-gcn-off]) [class*="Button_iconButton"]:hover svg,
+html:not([data-gcn-off]) [class*="Button_iconButton"]:hover svg path {
+  fill: var(--gcn-accent) !important;
+  color: var(--gcn-accent) !important;
+}
+
+html:not([data-gcn-off]) [class*="Button_btn"]:not([class*="Button_primary"]) {
+  background: var(--gcn-elev-3) !important;
+  color: var(--gcn-text) !important;
+  border: 1px solid var(--gcn-line) !important;
+  border-radius: 999px !important;
+}
+
+html:not([data-gcn-off]) [class*="Button_secondary"],
+html:not([data-gcn-off]) button[class*="Button_secondary"] {
+  background: var(--gcn-elev-3) !important;
+  background-color: var(--gcn-elev-3) !important;
+  color: var(--gcn-text) !important;
+  border: 1px solid var(--gcn-line) !important;
+  box-shadow: none !important;
+}
+
+html:not([data-gcn-off]) [class*="Button_secondary"]:hover {
+  background: var(--gcn-elev-2) !important;
+  border-color: var(--gcn-accent) !important;
+}
+
+/* Segmented Time/Distance toggles */
+html:not([data-gcn-off]) [class*="SegmentedButtonGroup_group"] {
+  background: var(--gcn-elev-2) !important;
+  border: 1px solid var(--gcn-line) !important;
+  border-radius: 999px !important;
+  overflow: hidden;
+}
+
+html:not([data-gcn-off]) [class*="SegmentedButton_segmentedButton"] {
+  background: transparent !important;
+  color: var(--gcn-text-dim) !important;
+  border: none !important;
+}
+
+html:not([data-gcn-off]) [class*="SegmentedButton_segmentedButton"][class*="SegmentedButton_active"],
+html:not([data-gcn-off]) [class*="SegmentedButton_active"] {
+  background: var(--gcn-accent) !important;
+  color: #04140f !important;
+}
+
+html:not([data-gcn-off]) [class*="Chip_chip"] {
+  background: var(--gcn-elev-2) !important;
+  color: var(--gcn-text) !important;
+  border-color: var(--gcn-line) !important;
+}
+
+html:not([data-gcn-off]) [class*="MapZoom_zoomButton"],
+html:not([data-gcn-off]) [class*="ButtonIcon_btnMap"],
+html:not([data-gcn-off]) [class*="_centerMapIcon"] {
+  background: var(--gcn-elev-2) !important;
+  color: var(--gcn-text) !important;
+  border-color: var(--gcn-line) !important;
+}
+
+/* —— Challenge cards + hard-coded dark text —— */
+html:not([data-gcn-off]) [class*="Gc5ChallengesCard_title"],
+html:not([data-gcn-off]) [class*="Gc5ChallengesCard_secondaryText"],
+html:not([data-gcn-off]) [class*="Gc5ChallengesCard_progress"],
+html:not([data-gcn-off]) [class*="Gc5TrainingCard_titleText"],
+html:not([data-gcn-off]) [class*="LastSyncLabel"],
+html:not([data-gcn-off]) [class*="Gc5Card_card"] {
+  color: var(--gcn-text) !important;
+}
+
+html:not([data-gcn-off]) [class*="Gc5ChallengesCard_secondaryText"],
+html:not([data-gcn-off]) [class*="LastSyncLabel"] {
+  color: var(--gcn-text-dim) !important;
+}
+
+/* Challenge progress bars — incomplete blue, complete teal */
+html:not([data-gcn-off]) [class*="ProgressBar_barWrapper"] {
+  background: #243447 !important;
+  border-radius: 999px !important;
+  overflow: hidden !important;
+}
+
+html:not([data-gcn-off]) [class*="ProgressBar_bar__"] {
+  background: #6ec8ff !important;
+  background-color: #6ec8ff !important;
+  border-radius: 999px !important;
+}
+
+html:not([data-gcn-off]) [class*="ProgressBar_bar__"][style*="green"],
+html:not([data-gcn-off]) [class*="ProgressBar_bar__"][style*="100%"],
+html:not([data-gcn-off]) .bar-complete.progress-complete {
+  background: #2ee6a6 !important;
+  background-color: #2ee6a6 !important;
+}
+
+html:not([data-gcn-off]) .progress-bar .bar,
+html:not([data-gcn-off]) .progress .bar {
+  background: #6ec8ff !important;
+  background-color: #6ec8ff !important;
+}
+
+/* —— Menus / popovers / dialogs —— */
+html:not([data-gcn-off]) [class*="Dialog_dialog"],
+html:not([data-gcn-off]) [class*="ImportDataMenu_menu"],
+html:not([data-gcn-off]) [class*="InboxContent_menu"],
+html:not([data-gcn-off]) [class*="DeviceStatus_container"],
+html:not([data-gcn-off]) [class*="UserProfileMenu_menu"] {
+  background: var(--gcn-elev-2) !important;
+  color: var(--gcn-text) !important;
+  border: 1px solid var(--gcn-line) !important;
+  border-radius: var(--gcn-radius-sm) !important;
+  box-shadow: var(--shadow-lg) !important;
+  backdrop-filter: blur(20px);
+}
+
+/* Tooltip bubble only — NOT the trigger wrapper (wraps header icons) */
+html:not([data-gcn-off]) [class*="Tooltip_tooltiptext"] {
+  background: var(--gcn-elev-2) !important;
+  color: var(--gcn-text) !important;
+  border: 1px solid var(--gcn-line) !important;
+  border-radius: 8px !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* Reset trigger wrappers so header icons stay ghost */
+html:not([data-gcn-off]) [class*="Tooltip_tooltip"]:not([class*="Tooltip_tooltiptext"]) {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  backdrop-filter: none !important;
+}
+
+html:not([data-gcn-off]) [class*="Dialog_dialogBackdrop"] {
+  background: rgba(4, 8, 12, 0.72) !important;
+}
+
+html:not([data-gcn-off]) [class*="Skeleton_skeleton"],
+html:not([data-gcn-off]) [class*="Skeleton_crypt"] {
+  background: linear-gradient(
+    90deg,
+    var(--gcn-elev-2) 0%,
+    var(--gcn-elev-3) 50%,
+    var(--gcn-elev-2) 100%
+  ) !important;
+}
+
+/* —— Inputs —— */
+html:not([data-gcn-off]) input,
+html:not([data-gcn-off]) select,
+html:not([data-gcn-off]) textarea {
+  background: var(--gcn-elev-2) !important;
+  color: var(--gcn-text) !important;
+  border-color: var(--gcn-line-strong) !important;
+}
+
+html:not([data-gcn-off]) input:focus,
+html:not([data-gcn-off]) select:focus,
+html:not([data-gcn-off]) textarea:focus {
+  outline-color: var(--gcn-accent) !important;
+  border-color: var(--gcn-accent) !important;
+  box-shadow: 0 0 0 3px var(--gcn-accent-soft);
+}
+
+/* —— Charts / SVG polish —— */
+html:not([data-gcn-off]) [class*="Gc5Card_card"] svg text {
+  fill: var(--gcn-text-dim) !important;
+}
+
+html:not([data-gcn-off]) [class*="Gc5Card_card"] svg [stroke="#cccccc"],
+html:not([data-gcn-off]) [class*="Gc5Card_card"] svg [stroke="#e5e5e5"],
+html:not([data-gcn-off]) [class*="Gc5Card_card"] svg [stroke="#eeeeee"],
+html:not([data-gcn-off]) [class*="Gc5Card_card"] svg [stroke="#f2f2f2"] {
+  stroke: rgba(140, 180, 210, 0.2) !important;
+}
+
+html:not([data-gcn-off]) [class*="Gc5Card_card"] svg [fill="#ffffff"],
+html:not([data-gcn-off]) [class*="Gc5Card_card"] svg [fill="#fff"],
+html:not([data-gcn-off]) [class*="Gc5Card_card"] svg [fill="white"] {
+  fill: var(--gcn-elev-1) !important;
+}
+
+/* Soft pulse on page load for wow */
+@keyframes gcn-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+html:not([data-gcn-off]) [class*="Homepage_inFocusCardContainer"] > *,
+html:not([data-gcn-off]) [class*="Homepage_wrappableCardContainer"] > * {
+  animation: gcn-fade-up 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+html:not([data-gcn-off]) [class*="Homepage_inFocusCardContainer"] > *:nth-child(1) { animation-delay: 0.02s; }
+html:not([data-gcn-off]) [class*="Homepage_inFocusCardContainer"] > *:nth-child(2) { animation-delay: 0.06s; }
+html:not([data-gcn-off]) [class*="Homepage_inFocusCardContainer"] > *:nth-child(3) { animation-delay: 0.1s; }
+html:not([data-gcn-off]) [class*="Homepage_inFocusCardContainer"] > *:nth-child(4) { animation-delay: 0.14s; }
+html:not([data-gcn-off]) [class*="Homepage_inFocusCardContainer"] > *:nth-child(5) { animation-delay: 0.18s; }
+html:not([data-gcn-off]) [class*="Homepage_inFocusCardContainer"] > *:nth-child(6) { animation-delay: 0.22s; }
+
+/* Scrollbar */
+html:not([data-gcn-off]) ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+html:not([data-gcn-off]) ::-webkit-scrollbar-track {
+  background: var(--gcn-void);
+}
+html:not([data-gcn-off]) ::-webkit-scrollbar-thumb {
+  background: #2a3a4e;
+  border-radius: 8px;
+  border: 2px solid var(--gcn-void);
+}
+html:not([data-gcn-off]) ::-webkit-scrollbar-thumb:hover {
+  background: var(--gcn-accent);
+}
+
+/* Selection */
+html:not([data-gcn-off]) ::selection {
+  background: rgba(46, 230, 166, 0.35);
+  color: #fff;
+}
+
+/* —— News Feed —— */
+html:not([data-gcn-off]) [class*="NewsFeedFilter_comboxBoxMenu"],
+html:not([data-gcn-off]) [class*="FollowerLeaderboard_dropdownMenu"],
+html:not([data-gcn-off]) [class*="CommentEditor_editorTextField"],
+html:not([data-gcn-off]) [class*="CommentInput_textArea"],
+html:not([data-gcn-off]) [class*="FollowSuggestionCard_undoContainer"],
+html:not([data-gcn-off]) [class*="FollowSuggestionCard_container"],
+html:not([data-gcn-off]) [class*="FollowerLeaderboard_container"] {
+  background: var(--gcn-elev-1) !important;
+  background-color: var(--gcn-elev-1) !important;
+  color: var(--gcn-text) !important;
+}
+
+html:not([data-gcn-off]) [class*="NewsFeedFilter_comboboxTrigger"],
+html:not([data-gcn-off]) [class*="NewsFeedFilter_feedFilterTrigger"],
+html:not([data-gcn-off]) [class*="FollowerLeaderboard_dropdownToggle"] {
+  background: var(--gcn-elev-2) !important;
+  background-color: var(--gcn-elev-2) !important;
+  border: none !important;
+  border-radius: 10px !important;
+  color: var(--gcn-text) !important;
+  /* inset only — kill Garmin 0 1px 0 color-108 + double stroke */
+  box-shadow: inset 0 0 0 1px rgba(140, 180, 210, 0.14) !important;
+  outline: none !important;
+}
+
+html:not([data-gcn-off]) [class*="NewsFeedFilter_comboboxTrigger"]:focus-within,
+html:not([data-gcn-off]) [class*="NewsFeedFilter_comboboxTrigger"]:hover,
+html:not([data-gcn-off]) [class*="NewsFeedFilter_feedFilterTrigger"]:hover,
+html:not([data-gcn-off]) [class*="FollowerLeaderboard_dropdownToggle"]:hover {
+  background: var(--gcn-elev-3) !important;
+  background-color: var(--gcn-elev-3) !important;
+  border: none !important;
+  box-shadow: inset 0 0 0 1px rgba(46, 230, 166, 0.35) !important;
+  outline: none !important;
+}
+
+html:not([data-gcn-off]) [class*="NewsFeedFilter_feedFilterDetail"],
+html:not([data-gcn-off]) [class*="NewsFeedFilter_comboxBoxMenu"],
+html:not([data-gcn-off]) [class*="FollowerLeaderboard_dropdownMenu"],
+html:not([data-gcn-off]) [class*="ActionMenu_menu"] {
+  background: var(--gcn-elev-2) !important;
+  background-color: var(--gcn-elev-2) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(140, 180, 210, 0.14),
+    0 24px 56px rgba(0, 0, 0, 0.55) !important;
+  outline: none !important;
+}
+
+html:not([data-gcn-off]) [class*="NewsFeedFilter_comboboxTrigger"]::after,
+html:not([data-gcn-off]) [class*="NewsFeedFilter_comboboxTrigger"]::before,
+html:not([data-gcn-off]) [class*="Card_card__"]::after,
+html:not([data-gcn-off]) [class*="Card_card__"]::before,
+html:not([data-gcn-off]) [class*="ActivityCard_activityContainer"]::after,
+html:not([data-gcn-off]) [class*="ActivityCard_activityContainer"]::before {
+  display: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+html:not([data-gcn-off]) [class*="NewsFeedFilter_menuItem"],
+html:not([data-gcn-off]) [class*="NewsFeedFilter_header"],
+html:not([data-gcn-off]) [class*="FollowerLeaderboard_dropdownMenuItem"] {
+  color: var(--gcn-text) !important;
+  background: transparent !important;
+}
+
+html:not([data-gcn-off]) [class*="NewsFeedFilter_menuItem"]:hover,
+html:not([data-gcn-off]) [class*="FollowerLeaderboard_dropdownMenuItem"]:hover {
+  background: var(--gcn-accent-soft) !important;
+}
+
+html:not([data-gcn-off]) [class*="NewsFeedFilter_divider"] {
+  background: var(--gcn-line) !important;
+}
+
+html:not([data-gcn-off]) [class*="CommentEditor_editorTextField"],
+html:not([data-gcn-off]) [class*="CommentInput_textArea"] {
+  background: var(--gcn-elev-2) !important;
+  color: var(--gcn-text) !important;
+  border: 1px solid var(--gcn-line) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+}
+
+html:not([data-gcn-off]) [class*="CommentEditor_editorPlaceholder"] {
+  color: var(--gcn-text-dim) !important;
+}
+
+html:not([data-gcn-off]) [class*="CommentLikeSection_message"],
+html:not([data-gcn-off]) [class*="CommentLikeSection_likeDesc"],
+html:not([data-gcn-off]) [class*="CommentLikeSection_likeCommentStatus"] {
+  color: var(--gcn-text-dim) !important;
+}
+
+html:not([data-gcn-off]) [class*="CommentLikeSection_divider"] {
+  background: var(--gcn-line) !important;
+  border-color: var(--gcn-line) !important;
+}
+
+/* News feed card shell — Garmin Card_card keeps light square stroke */
+html:not([data-gcn-off]) [class*="Card_card__"] {
+  background: linear-gradient(
+    155deg,
+    rgba(28, 40, 56, 0.92) 0%,
+    rgba(18, 26, 36, 0.96) 100%
+  ) !important;
+  background-color: var(--gcn-elev-1) !important;
+  border: none !important;
+  border-radius: var(--gcn-radius) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(140, 180, 210, 0.12),
+    0 12px 40px rgba(0, 0, 0, 0.35) !important;
+  outline: none !important;
+  overflow: hidden !important;
+}
+
+html:not([data-gcn-off]) [class*="ActivityCard_activityContainer"] {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  overflow: visible !important;
+}
+
+html:not([data-gcn-off]) [class*="ActivityCard_activityContainer"] *,
+html:not([data-gcn-off]) [class*="Card_card__"] * {
+  outline-color: transparent;
+}
+
+/* Action menus — kill white hover */
+html:not([data-gcn-off]) [class*="ActionMenuItem_actionMenuItem"],
+html:not([data-gcn-off]) button[class*="ActionMenuItem"] {
+  color: var(--gcn-text) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border-radius: 8px !important;
+}
+
+html:not([data-gcn-off]) [class*="ActionMenuItem_actionMenuItem"]:hover,
+html:not([data-gcn-off]) [class*="ActionMenuItem_actionMenuItem"]:not(:disabled):hover,
+html:not([data-gcn-off]) button[class*="ActionMenuItem"]:hover,
+html:not([data-gcn-off]) button[class*="ActionMenuItem"]:not(:disabled):hover,
+html:not([data-gcn-off]) [class*="ComboBoxMenu_singleSelectButton"]:hover,
+html:not([data-gcn-off]) [class*="Dropdown_dropdownMenu"] li:hover {
+  background: var(--gcn-accent-soft) !important;
+  background-color: var(--gcn-accent-soft) !important;
+  color: var(--gcn-text) !important;
+}
+
+html:not([data-gcn-off]) [class*="ActionMenuItem_actionMenuItem"] svg,
+html:not([data-gcn-off]) [class*="ActionMenuItem_actionMenuItem"]:hover svg {
+  fill: currentColor !important;
+  color: inherit !important;
+}
+
+html:not([data-gcn-off]) .undo-section button:hover,
+html:not([data-gcn-off]) [class*="FollowSuggestionCard"] button:hover {
+  background: var(--gcn-accent-soft) !important;
+  color: var(--gcn-text) !important;
+}
+
+html:not([data-gcn-off]) [class*="FollowerLeaderboard_leaderboardRow"] {
+  background: transparent !important;
+  color: var(--gcn-text) !important;
+  border-radius: 8px;
+}
+
+html:not([data-gcn-off]) [class*="FollowerLeaderboard_leaderboardRow"][data-highlight="true"] {
+  background: var(--gcn-accent-soft) !important;
+  box-shadow: inset 3px 0 0 var(--gcn-accent);
+}
+
+html:not([data-gcn-off]) [class*="FollowerLeaderboard_name"],
+html:not([data-gcn-off]) [class*="FollowerLeaderboard_rank"],
+html:not([data-gcn-off]) [class*="FollowerLeaderboard_score"],
+html:not([data-gcn-off]) [class*="FollowerLeaderboard_title"] {
+  color: var(--gcn-text) !important;
+}
+
+html:not([data-gcn-off]) [class*="FollowerLeaderboard_userLink"] {
+  color: var(--gcn-link) !important;
+}
+
+html:not([data-gcn-off]) [class*="FollowSuggestionCard_container"] {
+  background: var(--gcn-elev-1) !important;
+  border: 1px solid var(--gcn-line) !important;
+  border-radius: var(--gcn-radius-sm) !important;
+}
+
+html:not([data-gcn-off]) [class*="FollowSuggestionCard_metadata"],
+html:not([data-gcn-off]) [class*="FollowSuggestionCard_undoText"] {
+  color: var(--gcn-text-dim) !important;
+}
+
+html:not([data-gcn-off]) [class*="FollowSuggestionCard_name"] {
+  color: var(--gcn-text) !important;
+}
+
+html:not([data-gcn-off]) [class*="FollowSuggestionCard_undoContainer"] {
+  background: var(--gcn-elev-2) !important;
+  color: var(--gcn-text) !important;
+}
+
+html:not([data-gcn-off]) body.newsfeed .content.page,
+html:not([data-gcn-off]) .content.page.newsfeed {
+  background: transparent !important;
+}
+
+/* —— Activity detail charts —— */
+html:not([data-gcn-off]) [class*="BaseChart_chartWrapper"] {
+  min-height: 160px !important;
+  height: 160px !important;
+}
+
+html:not([data-gcn-off]) [class*="BaseChart_chartWrapper"] .recharts-responsive-container,
+html:not([data-gcn-off]) [class*="BaseChart_chartWrapper"] .recharts-wrapper {
+  height: 160px !important;
+  min-height: 160px !important;
+}
+
+html:not([data-gcn-off]) [class*="BaseChart_chartWrapper"] .recharts-surface {
+  overflow: visible;
+}
+
+/* Soften grid + axis typography */
+html:not([data-gcn-off]) .recharts-cartesian-grid line,
+html:not([data-gcn-off]) .recharts-cartesian-grid-horizontal line,
+html:not([data-gcn-off]) .recharts-cartesian-grid-vertical line {
+  stroke: rgba(140, 180, 210, 0.14) !important;
+  stroke-width: 1px !important;
+  opacity: 1 !important;
+}
+
+html:not([data-gcn-off]) .recharts-text,
+html:not([data-gcn-off]) .recharts-cartesian-axis-tick-value,
+html:not([data-gcn-off]) [class*="BaseChart_tick"],
+html:not([data-gcn-off]) .recharts-label,
+html:not([data-gcn-off]) .activity-charts text {
+  fill: var(--gcn-text-dim) !important;
+  font-weight: 400 !important;
+  font-size: 11px !important;
+  letter-spacing: 0 !important;
+  /* Garmin halo shadow (inverse text) blooms on dark — kill it */
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+html:not([data-gcn-off]) .recharts-reference-line-line {
+  stroke: rgba(168, 182, 200, 0.55) !important;
+}
+
+html:not([data-gcn-off]) .recharts-reference-line text,
+html:not([data-gcn-off]) .recharts-reference-line tspan {
+  fill: var(--gcn-text) !important;
+  font-weight: 500 !important;
+}
+
+/* Dropdowns — dark chrome (charts + calendar + global) */
+html:not([data-gcn-off]) [class*="Dropdown_dropdown"] {
+  background: var(--gcn-elev-2) !important;
+  background-color: var(--gcn-elev-2) !important;
+  color: var(--gcn-text) !important;
+  border: 1px solid var(--gcn-line) !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+}
+
+html:not([data-gcn-off]) [class*="ActivityChartContainer"] [class*="Dropdown_dropdown"],
+html:not([data-gcn-off]) [class*="chartHeader"] [class*="Dropdown_dropdown"],
+html:not([data-gcn-off]) .activity-charts [class*="Dropdown_dropdown"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+html:not([data-gcn-off]) [class*="Dropdown_dropdownToggle"],
+html:not([data-gcn-off]) [class*="Dropdown_dropdownButton"] {
+  color: var(--gcn-text) !important;
+}
+
+html:not([data-gcn-off]) [class*="Dropdown_dropdownMenu"] {
+  background: var(--gcn-elev-2) !important;
+  color: var(--gcn-text) !important;
+  border: 1px solid var(--gcn-line) !important;
+  border-radius: 10px !important;
+  box-shadow: var(--shadow-lg) !important;
+}
+
+html:not([data-gcn-off]) [class*="Dropdown_divider"] {
+  background: var(--gcn-line) !important;
+}
+
+html:not([data-gcn-off]) [class*="ActivityChartContainer_chartHeader"],
+html:not([data-gcn-off]) .activity-charts {
+  color: var(--gcn-text) !important;
+}
+
+html:not([data-gcn-off]) body.body-activity-detail .content.page {
+  background: transparent !important;
+}
+
+/* —— Calendar —— */
+html:not([data-gcn-off]) body.body-calendar .content.page,
+html:not([data-gcn-off]) .calendar-wrapper,
+html:not([data-gcn-off]) .calendar-body,
+html:not([data-gcn-off]) .calendar-body-wrapper,
+html:not([data-gcn-off]) .calendar-view,
+html:not([data-gcn-off]) .calendar-month,
+html:not([data-gcn-off]) .calendar,
+html:not([data-gcn-off]) .calendar-sidebar,
+html:not([data-gcn-off]) .calendar-footer {
+  background: transparent !important;
+  color: var(--gcn-text) !important;
+}
+
+html:not([data-gcn-off]) .calendar th,
+html:not([data-gcn-off]) .calendar-month th,
+html:not([data-gcn-off]) table.calendar th {
+  background: var(--gcn-elev-2) !important;
+  color: var(--gcn-text-dim) !important;
+  border-color: var(--gcn-line) !important;
+  font-weight: 500 !important;
+}
+
+html:not([data-gcn-off]) .calendar-data,
+html:not([data-gcn-off]) td.calendar-data {
+  background: var(--gcn-elev-1) !important;
+  color: var(--gcn-text) !important;
+  border-color: var(--gcn-line) !important;
+}
+
+html:not([data-gcn-off]) .calendar-data.outside-current-date,
+html:not([data-gcn-off]) td.outside-current-date {
+  background: var(--gcn-base) !important;
+  color: var(--gcn-text-dim) !important;
+  opacity: 0.72;
+}
+
+html:not([data-gcn-off]) .calendar-data.current-day,
+html:not([data-gcn-off]) td.current-day {
+  background: var(--gcn-elev-2) !important;
+  border: 2px solid var(--gcn-accent) !important;
+  box-shadow: inset 0 0 0 1px rgba(46, 230, 166, 0.2);
+}
+
+html:not([data-gcn-off]) .weekly-totals,
+html:not([data-gcn-off]) .weekly-totals-header,
+html:not([data-gcn-off]) .weekly-totals-data,
+html:not([data-gcn-off]) th.weekly-totals,
+html:not([data-gcn-off]) td.weekly-totals,
+html:not([data-gcn-off]) [class*="CalendarView_weeklyTotals"] {
+  background: var(--gcn-elev-2) !important;
+  color: var(--gcn-text) !important;
+  border-color: var(--gcn-line) !important;
+}
+
+html:not([data-gcn-off]) .weekly-totals-header {
+  color: var(--gcn-accent) !important;
+  font-weight: 600 !important;
+}
+
+html:not([data-gcn-off]) .calendar-footer,
+html:not([data-gcn-off]) .calendar-totals-list {
+  background: var(--gcn-elev-1) !important;
+  color: var(--gcn-text) !important;
+  border-color: var(--gcn-line) !important;
+}
+
+html:not([data-gcn-off]) [class*="SelectionDropdown_mapFilterTrigger"],
+html:not([data-gcn-off]) [class*="SelectionDropdown_mapFilterDetail"] {
+  background: var(--gcn-elev-2) !important;
+  color: var(--gcn-text) !important;
+  border: 1px solid var(--gcn-line) !important;
+  border-radius: 10px !important;
+}
+
+html:not([data-gcn-off]) [class*="CalendarHeader_calendarHeader"],
+html:not([data-gcn-off]) .calendar-header,
+html:not([data-gcn-off]) .calendar-view-header,
+html:not([data-gcn-off]) .calendar-date-wrapper {
+  color: var(--gcn-text) !important;
+  background: transparent !important;
+}
+
+html:not([data-gcn-off]) .calendar-goto-today {
+  background: var(--gcn-elev-3) !important;
+  color: var(--gcn-text) !important;
+  border: 1px solid var(--gcn-line) !important;
+  border-radius: 8px !important;
+  height: 32px !important;
+  padding: 0 14px !important;
+  font-weight: 500 !important;
+  line-height: 30px !important;
+  box-shadow: none !important;
+}
+
+html:not([data-gcn-off]) .calendar-goto-today:hover {
+  border-color: var(--gcn-accent) !important;
+  color: var(--gcn-accent) !important;
+}
+
+html:not([data-gcn-off]) .calendar-date-navigation {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin: 0 10px !important;
+}
+
+html:not([data-gcn-off]) .calendar-date-previous,
+html:not([data-gcn-off]) .calendar-date-next {
+  background: var(--gcn-elev-3) !important;
+  color: var(--gcn-text) !important;
+  border: 1px solid var(--gcn-line) !important;
+  border-radius: 8px !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: none !important;
+  line-height: 1 !important;
+  font-size: 14px !important;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+html:not([data-gcn-off]) .calendar-date-previous:hover,
+html:not([data-gcn-off]) .calendar-date-next:hover {
+  background: var(--gcn-accent-soft) !important;
+  border-color: var(--gcn-accent) !important;
+  color: var(--gcn-accent) !important;
+}
+
+html:not([data-gcn-off]) .calendar-date-previous::before,
+html:not([data-gcn-off]) .calendar-date-next::before {
+  margin: 0 !important;
+  line-height: 1 !important;
+}
+
+html:not([data-gcn-off]) .weekly-totals-toggle,
+html:not([data-gcn-off]) .calendar-add-item,
+html:not([data-gcn-off]) .calendar-sidebar-add {
+  color: var(--gcn-text) !important;
+}
