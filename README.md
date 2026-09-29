@@ -2,6 +2,8 @@
 
 Chromium MV3 extension. Dark athletic midnight theme for [Garmin Connect](https://connect.garmin.com).
 
+![Garmin Connect Night on the home dashboard](docs/screenshot.jpg)
+
 ## Install (unpacked)
 
 1. Clone this repo or download a release zip.
